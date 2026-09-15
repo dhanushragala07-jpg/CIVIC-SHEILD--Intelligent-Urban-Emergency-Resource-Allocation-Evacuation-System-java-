@@ -7,26 +7,72 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="accessGate" class="access-gate">
+  <div class="access-card">
+    <div class="logo-mark big">✦</div>
+    <div class="eyebrow">CIVIC-SHIELD</div>
+    <h1>Emergency Decision Support</h1>
+    <p class="access-subtitle">Choose how you want to access the system.</p>
+    <div class="role-grid">
+      <button class="role-card" id="userRoleBtn"><span class="role-icon">👤</span><strong>User</strong><small>Report an accident or disaster and view response guidance.</small></button>
+      <button class="role-card" id="adminRoleBtn"><span class="role-icon">🛡</span><strong>Admin / Monitor</strong><small>Manage resources and monitor reported emergencies.</small></button>
+    </div>
+    <div id="passkeyBox" class="passkey-box hidden">
+      <label for="passkeyInput">Admin / Monitor Passkey</label>
+      <div class="passkey-row"><input id="passkeyInput" type="password" inputmode="numeric" maxlength="7" placeholder="Enter passkey"><button class="primary" id="passkeyBtn">Unlock</button></div>
+      <small>Authorized monitoring access only.</small>
+      <div id="passkeyError" class="error-text hidden">Incorrect passkey. Please try again.</div>
+    </div>
+  </div>
+</div>
+
 <header class="topbar">
   <div class="brand-wrap"><div class="logo-mark">✦</div><div><h1>CIVIC-SHIELD</h1><p>Safer Communities. Stronger Tomorrow.</p></div></div>
-  <nav><a href="#dashboard">Dashboard</a><a href="#report">Report Incident</a><a href="#resources">Resource Allocation</a><a href="#route">Evacuation Route</a><a href="#whatif">What-If Scenarios</a><a href="#about">About</a></nav>
-  <div class="top-note">Emergency Response &amp; Decision Support System</div>
+  <nav><a href="#dashboard">Dashboard</a><a href="#report">Report Incident</a><a href="#resources">Resources</a><a href="#route">Evacuation Route</a><a href="#whatif">What-If</a><a href="#about">About</a></nav>
+  <div class="top-actions"><span id="roleBadge" class="role-badge">USER ACCESS</span><button class="switch-btn" id="switchRole">Switch Access</button></div>
 </header>
+
 <main id="dashboard">
-<section class="hero"><div><div class="eyebrow">EMERGENCY RESPONSE PLATFORM</div><h2>Make the right response decision when every minute matters.</h2><p>Enter an emergency, let CIVIC-SHIELD calculate its priority, assign available resources, and find a safe route between regions.</p></div></section>
+<section class="hero"><div><div class="eyebrow">EMERGENCY RESPONSE PLATFORM</div><h2>Make the right response decision when every minute matters.</h2><p>Report an emergency, calculate its priority, allocate response resources, and find a safe route between affected regions.</p></div></section>
+
 <section class="stats grid-7">
 <div class="stat"><i>●</i><strong id="activeCount">0</strong><span>Active Incidents</span></div>
 <div class="stat"><i>●</i><strong id="affectedTotal">0</strong><span>People Affected</span></div>
 <div class="stat"><i>●</i><strong id="vulnerableTotal">0</strong><span>Vulnerable People</span></div>
-<div class="stat"><i>●</i><strong id="availableAmb">6</strong><span>Ambulances Available</span></div>
-<div class="stat"><i>●</i><strong id="availableTeams">4</strong><span>Rescue Teams Available</span></div>
-<div class="stat"><i>●</i><strong id="availableKits">210</strong><span>Medical Kits Available</span></div>
-<div class="stat"><i>●</i><strong id="availableBuses">3</strong><span>Evacuation Buses Available</span></div>
+<div class="stat"><i>●</i><strong id="availableAmb">0</strong><span>Ambulances Available</span></div>
+<div class="stat"><i>●</i><strong id="availableTeams">0</strong><span>Rescue Teams Available</span></div>
+<div class="stat"><i>●</i><strong id="availableKits">0</strong><span>Medical Kits Available</span></div>
+<div class="stat"><i>●</i><strong id="availableBuses">0</strong><span>Evacuation Buses Available</span></div>
 </section>
+
+<section class="panel admin-only hidden" id="adminPanel">
+  <div class="panel-title"><div><h3>🛡 Admin / Monitoring Console</h3><p>Enter the resources currently available and monitor places affected by accidents or disasters.</p></div><span class="admin-lock">PROTECTED ACCESS</span></div>
+  <div class="admin-grid">
+    <div class="admin-resource-box">
+      <h4>Available Response Resources</h4>
+      <p>Only the monitoring team can change these numbers.</p>
+      <div class="resource-top">
+        <label>Ambulances<input id="ambInput" type="number" min="0" value="0"></label>
+        <label>Rescue Teams<input id="teamInput" type="number" min="0" value="0"></label>
+        <label>Medical Kits<input id="kitInput" type="number" min="0" value="0"></label>
+        <label>Evacuation Buses<input id="busInput" type="number" min="0" value="0"></label>
+      </div>
+      <button class="primary" id="saveAdminResources">✓ Save Current Resources</button>
+      <div id="resourceStatus" class="success hidden"></div>
+    </div>
+    <div class="monitor-box">
+      <h4>Place Monitoring</h4>
+      <p>Current emergencies reported in each region.</p>
+      <div id="monitorPlaces" class="monitor-list"></div>
+    </div>
+  </div>
+</section>
+
 <section class="grid main-two">
 <div class="panel" id="queue-panel"><div class="panel-title"><div><h3>Emergency Priority Queue</h3><p>Higher score = earlier response recommendation.</p></div><button class="outline" id="demoBtn">Load Demo</button></div>
 <div class="table-scroll"><table><thead><tr><th>#</th><th>ID</th><th>TYPE</th><th>REGION</th><th>PEOPLE</th><th>VULNERABLE</th><th>RISK</th><th>SCORE</th><th>RECOMMENDATION</th></tr></thead><tbody id="queue"><tr><td colspan="9" class="empty">No incidents yet. Report an emergency to begin.</td></tr></tbody></table></div></div>
-<div class="panel" id="report"><div class="panel-title"><div><h3>＋ Report a New Emergency</h3><p>Fill in the details and let the system analyze the priority.</p></div></div>
+
+<div class="panel" id="report"><div class="panel-title"><div><h3>＋ Report a New Emergency</h3><p>Enter the situation details. CIVIC-SHIELD calculates the priority automatically.</p></div></div>
 <form id="incidentForm" class="form-grid">
 <label>Emergency ID<input id="incidentId" required placeholder="e.g., E105"></label>
 <label>Emergency Type<select id="incidentType"><option value="">Select type</option><option value="FLOOD">Flood</option><option value="FIRE">Fire</option><option value="MEDICAL">Medical Emergency</option><option value="HEAT">Heat Wave</option></select></label>
@@ -35,24 +81,29 @@
 <label>Vulnerable People<input id="vulnerable" type="number" min="0" required placeholder="e.g., 100"></label>
 <label>Medical Urgency<select id="medical"><option value="">Select urgency</option><option value="1">1 - Low</option><option value="2">2 - Low</option><option value="3">3 - Moderate</option><option value="4">4 - Moderate</option><option value="5">5 - Moderate</option><option value="6">6 - High</option><option value="7">7 - High</option><option value="8">8 - Very High</option><option value="9">9 - Critical</option><option value="10">10 - Critical</option></select></label>
 <label>Disaster Risk<select id="risk"><option value="">Select risk</option><option value="1">1 - Very Low</option><option value="2">2 - Low</option><option value="3">3 - Low</option><option value="4">4 - Moderate</option><option value="5">5 - Moderate</option><option value="6">6 - High</option><option value="7">7 - High</option><option value="8">8 - Very High</option><option value="9">9 - Severe</option><option value="10">10 - Extreme</option></select></label>
-<div class="form-help">You do not need to calculate the score yourself. CIVIC-SHIELD calculates it from the information you enter.</div>
+<div class="form-help">No calculations are required. Enter the situation and the system will rank it automatically.</div>
 <button class="primary" type="submit">▶ Analyze &amp; Add Incident</button>
 </form><div id="analysis" class="analysis hidden"></div></div>
 </section>
-<section class="panel" id="resources"><div class="panel-title"><div><h3>Resource Allocation</h3><p>Assign available resources for each incident. Use the dropdowns to select the number to send.</p></div><button class="outline" id="resetResources">Reset Resources</button></div>
-<div class="resource-top"><label>Available Ambulances<input id="ambInput" type="number" min="0" value="6"></label><label>Available Rescue Teams<input id="teamInput" type="number" min="0" value="4"></label><label>Available Medical Kits<input id="kitInput" type="number" min="0" value="210"></label><label>Available Evacuation Buses<input id="busInput" type="number" min="0" value="3"></label></div>
+
+<section class="panel" id="resources"><div class="panel-title"><div><h3>Resource Allocation</h3><p>Choose exact quantities to send to each emergency from the resources entered by the monitoring team.</p></div></div>
+<div id="resourceReadOnlyNote" class="info-note">Available resource totals are controlled by the Admin / Monitor. Users can choose quantities for the response plan but cannot change the supply totals.</div>
 <div id="allocation" class="allocation"><div class="empty">Report incidents first, then choose exact quantities for each emergency.</div></div><button class="primary" id="saveAllocation">▣ Save Allocation</button><div id="allocationStatus" class="success hidden"></div></section>
+
 <section class="grid lower-two">
 <div class="panel" id="route"><div class="panel-title"><div><h3>Safe Evacuation Route</h3><p>Find the safest available route between regions using shortest-path analysis.</p></div></div>
 <div class="route-controls"><label>From Region<select id="routeFrom"></select></label><span>→</span><label>To Region<select id="routeTo"></select></label><button class="primary" id="routeBtn">📍 Find Route</button></div>
 <div class="blocked-box"><b>Road status:</b><label><input type="checkbox" value="Riverside|Hillview"> Riverside ↔ Hillview</label><label><input type="checkbox" value="Central|Lakeside"> Central ↔ Lakeside</label><label><input type="checkbox" value="Eastbank|Industrial Area"> Eastbank ↔ Industrial Area</label></div>
 <div id="routeResult" class="result-box"><b>Shortest Safe Route</b><span>Select a starting region and destination to see the route.</span></div></div>
+
 <div class="panel" id="whatif"><div class="panel-title"><div><h3>What-If Command Center</h3><p>Choose a simple scenario. You do not need to know the risk formula.</p></div></div>
 <div class="scenario-grid"><div class="scenario"><b>☁ Increase Disaster Severity</b><span>Simulate a more severe situation.</span><select id="riskScenario"><option value="">Choose severity</option><option value="1">Slightly more severe</option><option value="2">Much more severe</option><option value="3">Extreme escalation</option></select><button class="primary" data-scenario="risk">Apply</button></div>
 <div class="scenario"><b>🚑 Reduce Available Ambulances</b><span>Simulate ambulances being out of service.</span><select id="ambScenario"><option value="">Choose number</option><option value="1">1 ambulance unavailable</option><option value="2">2 ambulances unavailable</option><option value="3">3 ambulances unavailable</option><option value="4">4 ambulances unavailable</option></select><button class="primary" data-scenario="amb">Apply</button></div>
 <div class="scenario"><b>⌂ Reduce Shelter Capacity</b><span>Simulate a reduction in available shelter space.</span><select id="shelterScenario"><option value="">Choose reduction</option><option value="10">10% capacity lost</option><option value="25">25% capacity lost</option><option value="40">40% capacity lost</option></select><button class="primary" data-scenario="shelter">Apply</button></div></div>
 <div class="scenario-result"><b>Scenario Result</b><pre id="scenarioOutput">Choose a scenario and click Apply to see its impact.</pre></div></div></section>
+
 <section class="panel" id="about"><div class="panel-title"><div><h3>Supporting Global Goals</h3><p>Building a safer and more resilient future.</p></div></div><div class="sdg-grid"><div><b>Good Health and Well-being (3)</b><span>Faster emergency response and better medical support.</span></div><div><b>Sustainable Cities and Communities (11)</b><span>Safer and more resilient urban and rural areas.</span></div><div><b>Climate Action (13)</b><span>Better preparedness for climate-related disasters.</span></div></div></section>
-</main><footer><b>CIVIC-SHIELD</b><span>Safer Communities. Stronger Tomorrow.</span><div>Dashboard &nbsp;|&nbsp; Report Incident &nbsp;|&nbsp; Resource Allocation &nbsp;|&nbsp; Evacuation Route &nbsp;|&nbsp; What-If Scenarios</div></footer>
+</main>
+<footer><b>CIVIC-SHIELD</b><span>Safer Communities. Stronger Tomorrow.</span><div>Emergency Decision Support Prototype</div></footer>
 <script src="app.js"></script>
 </body></html>
