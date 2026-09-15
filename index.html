@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIVIC-SHIELD | Emergency Decision Support</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="brand">CIVIC<span>-SHIELD</span></div>
+    <div class="subtitle">Urban Emergency Decision Support & Evacuation System</div>
+  </div>
+  <div class="status"><span class="dot"></span> SIMULATION MODE</div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">SDG 11 • SDG 3 • SDG 13</p>
+      <h1>Make scarce emergency resources reach the right place first.</h1>
+      <p class="lead">A decision-support prototype that prioritizes incidents, allocates limited resources and finds safer evacuation routes under changing conditions.</p>
+      <button class="primary" onclick="runAllocation()">Run Priority Engine</button>
+    </div>
+    <div class="score-card">
+      <div class="score-label">SYSTEM READINESS</div>
+      <div class="score">94<span>%</span></div>
+      <div class="small">4 active incidents • 5 ambulances • 4 shelters</div>
+    </div>
+  </section>
+
+  <section class="grid stats">
+    <div class="stat"><span>ACTIVE INCIDENTS</span><b id="incidentCount">4</b><small>priority queue online</small></div>
+    <div class="stat"><span>PEOPLE AFFECTED</span><b id="peopleCount">2,380</b><small>estimated total</small></div>
+    <div class="stat"><span>RESOURCES</span><b>12</b><small>critical units available</small></div>
+    <div class="stat"><span>SHELTER CAPACITY</span><b>1,430</b><small>spaces available</small></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div><h2>Emergency Priority Queue</h2><p>Higher score = earlier response recommendation.</p></div>
+      <button class="ghost" onclick="shuffleRisks()">Simulate risk change</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>TYPE</th><th>ZONE</th><th>PEOPLE</th><th>VULNERABLE</th><th>RISK</th><th>SCORE</th><th>RECOMMENDATION</th></tr></thead>
+        <tbody id="incidentTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <div class="panel-head"><div><h2>Resource Allocation</h2><p>Priority-driven assignment of scarce units.</p></div></div>
+      <div id="allocation" class="allocation"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2>Safe Evacuation Route</h2><p>Dijkstra-style shortest available route.</p></div></div>
+      <div class="route-controls">
+        <select id="start"><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+        <span>→</span>
+        <select id="destination"><option>S1</option><option>S2</option><option>S3</option><option>S4</option></select>
+        <button class="primary small-btn" onclick="findRoute()">Find Route</button>
+      </div>
+      <div id="routeResult" class="route-result"></div>
+    </div>
+  </section>
+
+  <section class="panel simulation">
+    <div class="panel-head">
+      <div><h2>What-If Command Center</h2><p>Test how the system behaves when conditions change.</p></div>
+    </div>
+    <div class="scenario-grid">
+      <button onclick="simulate('risk')"><b>↑ Disaster Risk</b><span>Increase risk levels and recompute priority.</span></button>
+      <button onclick="simulate('ambulance')"><b>↓ Ambulances</b><span>Simulate a shortage of three ambulances.</span></button>
+      <button onclick="simulate('shelter')"><b>↓ Shelter Capacity</b><span>Simulate a 400-space reduction at S3.</span></button>
+    </div>
+    <pre id="simulationOutput">Choose a scenario to see the decision engine respond.</pre>
+  </section>
+
+  <section class="panel impact">
+    <div class="panel-head"><div><h2>SDG Impact Dashboard</h2><p>How the system connects software decisions to measurable outcomes.</p></div></div>
+    <div class="impact-grid">
+      <div><b>SDG 11</b><span>Supports resilient and safer communities through coordinated emergency response.</span></div>
+      <div><b>SDG 3</b><span>Prioritizes medical urgency and vulnerable populations during resource scarcity.</span></div>
+      <div><b>SDG 13</b><span>Models climate-linked flood and heat emergencies and tests response capacity.</span></div>
+    </div>
+  </section>
+</main>
+
+<footer>CIVIC-SHIELD • BACSE102 • Java Activity 2 • Prototype Interface</footer>
+<script src="app.js"></script>
+</body>
+</html>
