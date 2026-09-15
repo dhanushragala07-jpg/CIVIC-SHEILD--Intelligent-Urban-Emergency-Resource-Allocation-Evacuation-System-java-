@@ -79,6 +79,10 @@
 <label>Region<select id="incidentRegion"><option value="">Select region</option></select></label>
 <label>People Affected<input id="people" type="number" min="1" required placeholder="e.g., 500"></label>
 <label>Vulnerable People<input id="vulnerable" type="number" min="0" required placeholder="e.g., 100"></label>
+<label>
+  Date & Time of Disaster
+  <input id="occurredAt" type="datetime-local" required>
+</label>
 <label>Medical Urgency<select id="medical"><option value="">Select urgency</option><option value="1">1 - Low</option><option value="2">2 - Low</option><option value="3">3 - Moderate</option><option value="4">4 - Moderate</option><option value="5">5 - Moderate</option><option value="6">6 - High</option><option value="7">7 - High</option><option value="8">8 - Very High</option><option value="9">9 - Critical</option><option value="10">10 - Critical</option></select></label>
 <label>Disaster Risk<select id="risk"><option value="">Select risk</option><option value="1">1 - Very Low</option><option value="2">2 - Low</option><option value="3">3 - Low</option><option value="4">4 - Moderate</option><option value="5">5 - Moderate</option><option value="6">6 - High</option><option value="7">7 - High</option><option value="8">8 - Very High</option><option value="9">9 - Severe</option><option value="10">10 - Extreme</option></select></label>
 <div class="form-help">No calculations are required. Enter the situation and the system will rank it automatically.</div>
