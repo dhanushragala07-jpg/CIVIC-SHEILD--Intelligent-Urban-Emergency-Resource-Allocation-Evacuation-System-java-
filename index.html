@@ -46,7 +46,7 @@
 </section>
 
 <section class="panel admin-only hidden" id="adminPanel">
-  <div class="panel-title"><div><h3>🛡 Admin / Monitoring Console</h3><p>Enter the resources currently available and monitor places affected by accidents or disasters.</p></div><span class="admin-lock">PROTECTED ACCESS</span></div>
+  <div class="panel-title"><div><h3>🛡 Admin / Monitoring Console</h3><p>Enter the resources currently available and monitor places affected by accidents or disasters.</p><div id="liveSync" class="live-sync hidden">● LIVE • Shared monitoring active</div></div><span class="admin-lock">PROTECTED ACCESS</span></div>
   <div class="admin-grid">
     <div class="admin-resource-box">
       <h4>Available Response Resources</h4>
@@ -105,5 +105,7 @@
 <section class="panel" id="about"><div class="panel-title"><div><h3>Supporting Global Goals</h3><p>Building a safer and more resilient future.</p></div></div><div class="sdg-grid"><div><b>Good Health and Well-being (3)</b><span>Faster emergency response and better medical support.</span></div><div><b>Sustainable Cities and Communities (11)</b><span>Safer and more resilient urban and rural areas.</span></div><div><b>Climate Action (13)</b><span>Better preparedness for climate-related disasters.</span></div></div></section>
 </main>
 <footer><b>CIVIC-SHIELD</b><span>Safer Communities. Stronger Tomorrow.</span><div>Emergency Decision Support Prototype</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 <script src="app.js"></script>
 </body></html>
